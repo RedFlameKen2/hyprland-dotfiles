@@ -14,7 +14,7 @@
   /*  --border-radius: 20%;*/
 }
 window#waybar{
-    font-family: FiraCodeNerdFont;
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 16px;
     background-color: transparent;
     min-height: 24px;
