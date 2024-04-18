@@ -27,7 +27,7 @@ alias listen-mic="pactl load-module module-loopback"
 alias mousemap="systemctl start input-remapper && sudo input-remapper-control --command start --device \"USB OPTICAL MOUSE \" --preset "
 alias cmain="g++ main.cpp -o main && chmod +x main && ./main"
 alias checkpower="~/.scripts/checkPower.sh"
-alias gitkey="xclip -selection c < Documents/githubkey"
+alias gitkey="wl-copy < Documents/githubkey"
 alias resetconky="/home/kenneth/AppImages/.scripts/resetConky.sh"
 # some more ls aliases
 alias ll='ls -alF'
