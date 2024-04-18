@@ -1,0 +1,15 @@
+(include "widgets.yuck")
+(defwindow dateWindow
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "10px"
+                        :width "300px"
+                        :height "200px"
+                        :anchor "top center")
+    :stacking "fg"
+    :wm-ignore false
+    :focusable false
+    :windowtype "toolbar"
+    :class "dateWindow"
+  (widgetList)
+)

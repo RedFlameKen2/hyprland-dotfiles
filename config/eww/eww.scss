@@ -1,0 +1,31 @@
+$background: #343434;
+$foreground: rgb(230, 230, 230);
+$border-color: #FFC371;
+
+* {
+    font-size: 16px;
+    font-family: "monospace";
+}
+
+.dateWindow {
+  background-color: $background;
+  border: solid;
+  border-width: 3px;
+  border-color: $border-color;
+  border-radius: 12px;
+}
+.widgetList {
+  background-color: transparent;
+}
+
+.dayLabel{
+  color: $foreground;
+}
+.date {
+  padding: 10px;
+}
+
+.calendar {
+  background-color: transparent;
+  border: none;
+}

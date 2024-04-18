@@ -1,0 +1,36 @@
+(defwidget widgetList []
+  (box
+    :class "widgetList"
+    :orientation "vertical"
+    :valign "start"
+    :space-evenly false
+    :vexpand true
+    (date)
+    (calendar
+      :class "calendar"
+      :day "0"
+      :month "0"
+      :year "date +%Y"
+      :show-details true
+      :show-heading true
+      :show-day-names true
+      )
+  )
+)
+(defwidget date []
+  (box
+    :class "date"
+    :orientation "horizontal"
+    :halign "center"
+    (dayLabel)
+  )
+)
+
+(defwidget dayLabel []
+  (label
+    :class "dayLabel"
+    :text dayText)
+)
+(defpoll dayText
+  :interval "5s"
+  "date '+%B %e, %Y'")

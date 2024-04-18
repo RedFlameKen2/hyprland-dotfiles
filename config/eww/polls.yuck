@@ -1,0 +1,32 @@
+
+(defpoll battery
+  :interval "1s"
+  :initial "BAT1"
+  "scripts/battery.sh icon"
+)
+
+(defpoll battery-capacity
+  :interval "1s"
+  :initial "0" 
+  "scripts/battery.sh percent"
+)
+
+(defpoll time
+  :interval "5s"
+  `date +'{"hour":"%l","min":"%M","meri":"%p"}'`
+)
+
+(defpoll netIcon
+  :interval "5s"
+  "scripts/network.sh networkIcon"
+)
+(defpoll volume
+  :interval "1s"
+  :initial 0
+  "scripts/volume.sh percent"
+)
+
+(defpoll volumeIcon
+  :interval "1s"
+  "scripts/volume.sh icon"
+)
