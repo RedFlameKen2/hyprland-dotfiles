@@ -1,4 +1,14 @@
-(defwidget widgetList []
+(include "polls.yuck")
+
+(defvar eww "eww")
+(defvar vol_level "100%")
+(defvar vol_icon "󰕾")
+(defvar ws_count 0)
+(defvar full_charge false)
+(defvar charging false)
+
+
+(defwidget dateWidgets []
   (box
     :class "widgetList"
     :orientation "vertical"
@@ -34,3 +44,151 @@
 (defpoll dayText
   :interval "5s"
   "date '+%B %e, %Y'")
+
+(defwidget barWidgets []
+  (centerbox
+    :class "barWidgets"
+    :orientation "horizontal"
+    :valign "center"
+    :halign "fill"
+    :space-evenly true
+    (barleft)
+    (barcenter)
+    (barright)
+  )
+)
+
+(defwidget barleft []
+  (box
+    :class "barleft"
+    :orientation "horizontal"
+    :valign "center"
+    :halign "start"
+    :space-evenly false
+    :spacing "5"
+    (appmenu)
+    (workspaces)
+
+  )
+)
+
+(defwidget barcenter []
+  (box
+    :class "barcenter"
+    :orientation "horizontal"
+    :halign "center"
+    :valign "center"
+    :space-evenly false
+    (clock)
+
+  )
+)
+
+(defwidget barright []
+  (box
+    :class "barright"
+    :orientation "horizontal"
+    :valign "center"
+    :halign "end"
+    :space-evenly false
+    :spacing "5"
+    (changeTheme)
+    (tray)
+    (volumeWidget)
+    (batteryWidget)
+  )
+)
+
+(defwidget appmenu []
+  (eventbox
+    :class "appmenu"
+    :orientation "horizontal"
+    :width "50px"
+    :cursor "pointer"
+    :onclick "$(wofi --show drun)"
+    (label
+      :class "appmenuLabel"
+      :justify "center"
+      :yalign "center"
+      :xalign "center"
+      :text "󰣇"
+    )
+  )
+)
+
+(defwidget workspaces []
+  (literal
+    :content workspace
+  )
+)
+
+(defwidget clock []
+  (eventbox
+    :class "clock"
+    :orientation "horizontal"
+    :valign "center"
+    :cursor "pointer"
+    :onclick "scripts/toggle.sh"
+    :show-truncated false
+    (label
+      :class "clockLabel"
+      :justify "center"
+      :text time
+    )
+  )
+)
+
+(defwidget changeTheme []
+  (eventbox
+    :class "changeTheme"
+    :orientation "horizontal"
+    :valign "center"
+    :cursor "pointer"
+    :onclick "$(scripts/swwwWallpaper.sh -i)"
+    :onrightclick "$(scripts/swwwWallpaper.sh -r)"
+    (label
+      :class "changeThemeLabel"
+      :text "󰏘"
+    )
+  )
+)
+
+
+(defwidget tray []
+  (systray
+    :class "tray"
+    :orientation "horizontal"
+    :space-evenly true
+    :icon-size "21"
+    :prepend-new true
+  )
+)
+
+(defwidget volumeWidget []
+  (eventbox
+    :class "volume"
+    :orientation "horizontal"
+    :halign "center"
+    :valign "center"
+    :cursor "pointer"
+    :onclick "$(${eww} update vol_level=$(scripts/volume.sh mute) vol_icon=$(scripts/volume.sh icon))"
+    :onrightclick "$(pavucontrol)"
+    :onscroll "$(${eww} update vol_level=$(scripts/volume.sh {})% vol_icon=$(scripts/volume.sh icon))"
+    (label
+      :class "volumeLabel"
+      :text "${vol_icon}  ${vol_level}"
+    )
+  )
+)
+
+(defwidget batteryWidget []
+  (box
+    :class "battery"
+    :orientation "horizontal"
+    :valign "center"
+    (label
+      :class "batteryLabel ${charging ? 'batcharging' : ''} ${full_charge ? 'batfull' : ''}"
+      :text "${battery} ${battery-capacity}%"
+    )
+  )
+)

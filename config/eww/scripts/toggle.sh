@@ -1,12 +1,12 @@
 #!/bin/bash
 
-ewwStatus="$(eww active-windows)"
+ewwStatus="$(eww active-windows | grep 'dateWindow')"
 
-if [ $ewwStatus != "dateWindow: dateWindow" ]
+if [ "$ewwStatus" == "dateWindow: dateWindow" ]
 then
-    eww open dateWindow &
+    eww close dateWindow
 else
-    eww close-all
+    eww open dateWindow &
 fi
 
 exit

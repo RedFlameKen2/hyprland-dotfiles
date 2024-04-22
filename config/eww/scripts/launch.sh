@@ -1,9 +1,9 @@
 #!/bin/bash
 
-eww kill
+killall eww
 
 eww daemon
 
-eww open dateWindow &
+eww open bar
 
 exit

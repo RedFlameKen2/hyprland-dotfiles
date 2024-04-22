@@ -1,32 +1,35 @@
-
 (defpoll battery
-  :interval "1s"
+  :interval "5s"
   :initial "BAT1"
   "scripts/battery.sh icon"
 )
 
 (defpoll battery-capacity
-  :interval "1s"
+  :interval "5s"
   :initial "0" 
   "scripts/battery.sh percent"
 )
 
-(defpoll time
+(defpoll battery-status
   :interval "5s"
-  `date +'{"hour":"%l","min":"%M","meri":"%p"}'`
+  :initial "0"
+  "scripts/battery.sh status"
+)
+
+(defpoll time
+  :interval "1s"
+  `date +'%l:%M %p'`
 )
 
 (defpoll netIcon
   :interval "5s"
   "scripts/network.sh networkIcon"
 )
-(defpoll volume
-  :interval "1s"
-  :initial 0
-  "scripts/volume.sh percent"
+(deflisten active_ws
+  :initial "0"
+  "hyprctl activeworkspace"
 )
-
-(defpoll volumeIcon
-  :interval "1s"
-  "scripts/volume.sh icon"
+(deflisten workspace
+  :initial "(box :class 'workspaces' :orientation 'horizontal' :spacing '50px' :space-evenly true )"
+  "./main"
 )

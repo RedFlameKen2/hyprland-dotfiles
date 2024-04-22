@@ -1,6 +1,9 @@
 $background: #343434;
 $foreground: rgb(230, 230, 230);
 $border-color: #FFC371;
+$fullcharge-color: rgb(25, 230, 25);
+$charging-color: rgb(230, 230, 25);
+$arch-color: rgb(130, 205, 255);
 
 * {
     font-size: 16px;
@@ -28,4 +31,77 @@ $border-color: #FFC371;
 .calendar {
   background-color: transparent;
   border: none;
+}
+
+.bar {
+  background-color: transparent;
+}
+
+.workspaces,
+.clock,
+.changeTheme,
+.tray,
+.volume,
+.battery,
+.appmenu{
+  background-color: $background;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.clockLabel,
+.appmenuLabel,
+.volumeLabel {
+  padding: 3px 10px;
+}
+
+.appmenuLabel {
+  color: $arch-color;
+  padding: 3px 14px 3px 12px;
+}
+
+.appmenu:hover .appmenuLabel{
+  background-color: $arch-color;
+  opacity: 0.8;
+  border-radius: 12px;
+  color: $background;
+}
+
+.workspaces {
+  padding: 1px 10px;
+}
+.activewslbl {
+  color: $arch-color;
+}
+.ws {
+  background: transparent;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.ws:hover {
+  background-color: $arch-color;
+  opacity: 0.8;
+}
+
+.ws:hover .wslbl {
+  color: $background;
+}
+
+.changeThemeLabel {
+  padding: 3px 15px;
+}
+
+.changeTheme:hover .changeThemeLabel{
+  background-color: $arch-color;
+  opacity: 0.8;
+  border-radius: 12px;
+  color: $background;
+}
+
+.batcharging {
+  color: $charging-color;
+}
+.batfull {
+  color: $fullcharge-color;
 }
