@@ -1,75 +1,148 @@
 #!/bin/bash
 
-bat=/sys/class/power_supply/BAT1/
-per="$(cat "$bat/capacity")"
-
 batstat(){
-    echo "$(cat "$bat/status")"
-}
-icon() {
-    [ $(cat "$bat/status") = charging ] && echo "󰂄" && exit
-    if [ "$(cat "$bat/status")" == "Charging" ]
+    stat="$(cat "/sys/class/power_supply/BAT1/status")"
+    if [ $stat == "Charging" ]
     then
-	eww update charging=true
-    else
-	charging=$(eww get charging)
-	if [ "$charging" == "true" ]
+	if [ "$(cat "/sys/class/power_supply/BAT1/capacity")" == "100" ]
 	then
-	    eww update charging=false
+	    eww update full_charge=true
 	fi
-    fi
-    if [ "$per" == "100" ]
-    then
-	eww update full_charge=true
+	echo true
     else
-	charging=$(eww get full_charge)
-	if [ "$charging" == "true" ]
+	if [ "$(eww get full_charge)" == "true" ]
 	then
 	    eww update full_charge=false
 	fi
+	echo false
     fi
-    if [ "$per" -gt "90" ]
+    echo $stat
+    while true; do
+	sleep 5
+	newstat="$(cat "/sys/class/power_supply/BAT1/status")"
+	if [ $newstat == "Charging" ]
+	then
+	    if [ "$(cat "/sys/class/power_supply/BAT1/capacity")" == "100" ]
+	    then
+		eww update full_charge=true
+	    fi
+	else
+	    if [ "$(eww get full_charge)" == "true" ]
+	    then
+		eww update full_charge=false
+	    fi
+	fi
+	if [ "$stat" == "$newstat" ]
+	then
+	    continue
+	else
+	    stat=$newstat
+	    if [ $stat == "Charging" ]
+	    then
+		echo true
+	    else
+		echo false
+	    fi
+	fi
+    done
+}
+
+batClass(){
+    class=""
+    echo class
+    while true; do
+	sleep 5
+	newclass=""
+	if [ $class == $newclass ]
+	then
+	    continue
+	else
+	    echo class
+	fi
+    done
+}
+
+icon=""
+
+getIcon(){
+    [ $2 = Charging ] && echo "󰂄" && return
+
+    if [ "$1" -gt "90" ]
     then
 	icon="󰁹"
-    elif [ "$per" -gt "80" ]
+    elif [ "$1" -gt "80" ]
     then
 	icon="󰂂"
-    elif [ "$per" -gt "70" ]
+    elif [ "$1" -gt "70" ]
     then
 	icon="󰂁"
-    elif [ "$per" -gt "60" ]
+    elif [ "$1" -gt "60" ]
     then
 	icon="󰂀"
-    elif [ "$per" -gt "50" ]
+    elif [ "$1" -gt "50" ]
     then
 	icon="󰁿"
-    elif [ "$per" -gt "40" ]
+    elif [ "$1" -gt "40" ]
     then
 	icon="󰁾"
-    elif [ "$per" -gt "30" ]
+    elif [ "$1" -gt "30" ]
     then
 	icon="󰁽"
-    elif [ "$per" -gt "20" ]
+    elif [ "$1" -gt "20" ]
     then
 	icon="󰁻"
-    elif [ "$per" -gt "10" ]
+    elif [ "$1" -gt "10" ]
     then
 	icon="󰁺"
-    elif [ "$per" -gt "0" ]
+    elif [ "$1" -gt "0" ]
     then
 	icon="󰂃"
     else
-	echo 󰂃 && exit
+	echo 󰂃 && return
     fi
     echo $icon
 }
 
-percent(){
-    echo $per
+icon() {
+    stat="$(cat "/sys/class/power_supply/BAT1/status")"
+    per="$(cat "/sys/class/power_supply/BAT1/capacity")"
+    getIcon $per $stat
+    while true; do
+	sleep 5
+	newstat="$(cat "/sys/class/power_supply/BAT1/status")"
+	newper="$(cat "/sys/class/power_supply/BAT1/capacity")"
+	if [ "$newstat" == "$stat" ] && [ "$per" == "$newper" ]
+	then
+	    continue
+	else
+	    stat=$newstat
+	    per=$newper
+	    getIcon $per $stat
+	    
+	fi
+    done
 }
 
+percent(){
+    per="$(cat "/sys/class/power_supply/BAT1/capacity")"
+
+    echo $per
+    while true; do
+	sleep 5
+	newper="$(cat "/sys/class/power_supply/BAT1/capacity")"
+	if [ $per == $newper ]
+	then
+	    continue
+	else
+	    per=$newper
+	    
+	    echo $per
+	fi
+    done
+}
 
 [ "$1" = "icon" ] && icon && exit
 [ "$1" = "percent" ] && percent && exit
 [ "$1" = "status" ] && batstat && exit
+[ "$1" = "class" ] && batClass && exit
 exit

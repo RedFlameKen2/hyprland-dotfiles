@@ -3,13 +3,15 @@ $foreground: rgb(230, 230, 230);
 $border-color: #FFC371;
 $fullcharge-color: rgb(25, 230, 25);
 $charging-color: rgb(230, 230, 25);
-$arch-color: rgb(130, 205, 255);
+$arch-color: rgb(100, 205, 255);
+$red-color: rgb(250, 75, 75);
 
 * {
     font-size: 16px;
     font-family: "JetBrainsMono Nerd Font";
 }
 
+.playerWindow,
 .dateWindow {
   background-color: $background;
   border: solid;
@@ -17,42 +19,43 @@ $arch-color: rgb(130, 205, 255);
   border-color: $border-color;
   border-radius: 12px;
 }
+
+.powerWindow, 
+.powerWidgets,
+.powerReveal,
+.playerWidgets,
 .widgetList {
   background-color: transparent;
+  border: none;
 }
-
-.dayLabel{
-  color: $foreground;
-}
+.musicImage,
+.playerControls,
 .date {
   padding: 10px;
 }
 
+.bar,
 .calendar {
   background-color: transparent;
   border: none;
 }
 
-.bar {
-  background-color: transparent;
-}
-
+.powerRevealButton,
 .workspaces,
 .clock,
 .changeTheme,
 .tray,
 .volume,
 .battery,
-.appmenu{
+.appmenuEventbox{
   background-color: $background;
   padding: 3px 10px;
   border-radius: 12px;
 }
 
-.clockLabel,
-.appmenuLabel,
-.volumeLabel {
-  padding: 3px 10px;
+.appmenu {
+  background-color: $background;
+  border-radius: 12px;
 }
 
 .appmenuLabel {
@@ -60,25 +63,40 @@ $arch-color: rgb(130, 205, 255);
   padding: 3px 14px 3px 12px;
 }
 
-.appmenu:hover .appmenuLabel{
+.clockLabel,
+.powerRevealLabel,
+.batteryLabel,
+.volumeLabel {
+  padding: 3px 10px;
+}
+.workspaces {
+  padding: 1px 10px;
+}
+
+
+.powerRevealLabel {
+  color: $red-color;
+}
+
+.appmenuEventbox:hover .appmenuLabel{
   background-color: $arch-color;
   opacity: 0.8;
   border-radius: 12px;
   color: $background;
 }
 
-.workspaces {
-  padding: 1px 10px;
-}
+.logout,
 .activewslbl {
   color: $arch-color;
 }
+
 .ws {
   background: transparent;
   border: none;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
+
 .ws:hover {
   background-color: $arch-color;
   opacity: 0.8;
@@ -88,8 +106,48 @@ $arch-color: rgb(130, 205, 255);
   color: $background;
 }
 
+.playerInfoLabel,
 .changeThemeLabel {
   padding: 3px 15px;
+}
+
+.playerScroll{
+  padding: 10px 30px 10px 30px;
+}
+
+.playerButton {
+  background: transparent;
+  border: solid 2px;
+  border-color: $charging-color;
+  border-radius: 50px;
+}
+.playerButton:hover {
+  background-color: $charging-color;
+}
+.playerButton:hover .playerButtonLabel {
+  color:  $background;
+}
+.playerButtonLabel {
+  color: $charging-color;
+}
+
+.scroller slider {
+  all: unset;
+  color: $arch-color;
+}
+
+.scroller scale trough highlight {
+  all: unset;
+  background-color: $arch-color;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.scroller scale trough {
+  all: unset;
+  background-color: gray;
+  border-radius: 50px;
+  min-height: 8px;
 }
 
 .changeTheme:hover .changeThemeLabel{
@@ -102,6 +160,31 @@ $arch-color: rgb(130, 205, 255);
 .batcharging {
   color: $charging-color;
 }
+.restart,
 .batfull {
   color: $fullcharge-color;
 }
+
+.powerButton {
+  background-color: $background;
+  border-radius: 30px;
+  border: $foreground solid 1px;
+}
+
+.powerButtonLabel {
+  font-size: 30px;
+}
+
+.powerButton:hover .powerButtonLabel{
+  font-size: 50px;
+  padding: 25px;
+}
+
+.shutdown {
+  color: $red-color;
+}
+
+.sleep {
+  color: purple;
+}
+

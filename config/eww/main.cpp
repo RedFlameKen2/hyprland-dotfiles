@@ -52,7 +52,7 @@ void updateLoop(){
     int activeWorkspace = getActiveWorkspace();
     while(true){
 	cout.flush();
-	sleep_for(0.2s);
+	sleep_for(250ms);
 	    int curActiveWorkspace = getActiveWorkspace();
 	    if(activeWorkspace == curActiveWorkspace){
 		continue;
@@ -65,7 +65,7 @@ void updateLoop(){
 
 string createWorkspaceLiteral(){
     int activeWorkspace = getActiveWorkspace();
-    string workspaceLiteral = "(box :class 'workspaces' :orientation 'horizontal' :spacing '50px' :space-evenly true ";
+    string workspaceLiteral = "(box :class 'workspaces' :orientation 'horizontal' :spacing '5' :space-evenly true ";
 
     int workspaceSize = 5;
     int curWorkspaceSize = getWorkspaceSize();

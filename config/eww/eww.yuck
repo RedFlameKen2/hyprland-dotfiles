@@ -29,3 +29,37 @@
   :class "bar"
   (barWidgets)
 )
+
+(defwindow playerWindow
+  :monitor 0
+  :geometry (geometry
+              :x "1%"
+              :y "10px"
+              :width "300px"
+              :height "100px"
+              :anchor "top left"
+            )
+  :stacking "fg"
+  :windowtype "toolbar"
+  :wm-ignore false
+  :focusable false
+  :class "playerWindow"
+  (playerWidgets)
+)
+
+(defwindow powerWindow
+  :monitor 0
+  :geometry (geometry
+              :x "0px"
+              :y "0px"
+              :width "100%"
+              :height "100%"
+              :anchor "top left"
+            )
+  :stacking "fg"
+  :windowtype "toolbar"
+  :wm-ignore false
+  :focusable true
+  :class "powerWindow"
+  (powerWidgets)
+)
