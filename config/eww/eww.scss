@@ -11,6 +11,7 @@ $red-color: rgb(250, 75, 75);
     font-family: "JetBrainsMono Nerd Font";
 }
 
+.volumeWindow,
 .playerWindow,
 .dateWindow {
   background-color: $background;
@@ -20,7 +21,7 @@ $red-color: rgb(250, 75, 75);
   border-radius: 12px;
 }
 
-.powerWindow, 
+.volumeControlWidgets,
 .powerWidgets,
 .powerReveal,
 .playerWidgets,
@@ -28,6 +29,11 @@ $red-color: rgb(250, 75, 75);
   background-color: transparent;
   border: none;
 }
+
+.powerWindow {
+  background-color: rgba(0,0,0,0.1);
+}
+
 .musicImage,
 .playerControls,
 .date {
@@ -40,6 +46,7 @@ $red-color: rgb(250, 75, 75);
   border: none;
 }
 
+.mixerButton,
 .powerRevealButton,
 .workspaces,
 .clock,
@@ -62,6 +69,7 @@ $red-color: rgb(250, 75, 75);
   padding: 3px 14px 3px 12px;
 }
 
+.mixerButtonLabel,
 .changeThemeLabel,
 .clockLabel,
 .powerRevealLabel,
@@ -105,6 +113,17 @@ $red-color: rgb(250, 75, 75);
   color: $background;
 }
 
+
+.volumeScrollLabel,
+.micScrollLabel {
+  padding: 0px 10px;
+}
+
+.volumeScroller,
+.micScroller {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .playerInfoLabel,
 .changeThemeLabel {
   padding: 3px 15px;

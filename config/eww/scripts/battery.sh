@@ -4,34 +4,17 @@ batstat(){
     stat="$(cat "/sys/class/power_supply/BAT1/status")"
     if [ $stat == "Charging" ]
     then
-	if [ "$(cat "/sys/class/power_supply/BAT1/capacity")" == "100" ]
-	then
-	    eww update full_charge=true
-	fi
 	echo true
+    elif [ $stat == "Full" ]
+    then
+	echo Full
     else
-	if [ "$(eww get full_charge)" == "true" ]
-	then
-	    eww update full_charge=false
-	fi
 	echo false
     fi
     echo $stat
     while true; do
 	sleep 5
 	newstat="$(cat "/sys/class/power_supply/BAT1/status")"
-	if [ $newstat == "Charging" ]
-	then
-	    if [ "$(cat "/sys/class/power_supply/BAT1/capacity")" == "100" ]
-	    then
-		eww update full_charge=true
-	    fi
-	else
-	    if [ "$(eww get full_charge)" == "true" ]
-	    then
-		eww update full_charge=false
-	    fi
-	fi
 	if [ "$stat" == "$newstat" ]
 	then
 	    continue
@@ -40,24 +23,12 @@ batstat(){
 	    if [ $stat == "Charging" ]
 	    then
 		echo true
+	    elif [ $stat == "Full" ]
+	    then
+		echo Full
 	    else
 		echo false
 	    fi
-	fi
-    done
-}
-
-batClass(){
-    class=""
-    echo class
-    while true; do
-	sleep 5
-	newclass=""
-	if [ $class == $newclass ]
-	then
-	    continue
-	else
-	    echo class
 	fi
     done
 }

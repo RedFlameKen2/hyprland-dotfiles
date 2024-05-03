@@ -1,8 +1,20 @@
 #!/bin/bash
 
 
-mute(){
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+muted(){
+    curMuted=$(pamixer --get-mute)
+    echo $curMuted
+    while true; do
+	sleep 0.5
+	new_curMuted=$(pamixer --get-mute)
+	if [ $new_curMuted == $curMuted ]
+	then
+	    continue
+	else
+	    curMuted=$new_curMuted
+	    echo $curMuted
+	fi
+    done
     
 #    newvolstat="$(amixer -D pulse sget Master | grep 'Left:' | awk -F '[][]' '{print $4}')"
 #
@@ -97,16 +109,18 @@ icon(){
 up(){
  #  pactl set-sink-volume @DEFAULT_SINK@ +5% 
     pamixer --increase 5
+    eww update vol_level=$(pamixer --get-volume)
 }
 
 down(){
  #  pactl set-sink-volume @DEFAULT_SINK@ -5% 
     pamixer --decrease 5
+    eww update vol_level=$(pamixer --get-volume)
 }
 
 [ "$1" = "up" ] && up && exit
 [ "$1" = "down" ] && down && exit
 [ "$1" = "icon" ] && icon && exit
 [ "$1" = "percent" ] && percent && exit
-[ "$1" = "mute" ] && mute && exit
+[ "$1" = "muted" ] && muted && exit
 exit

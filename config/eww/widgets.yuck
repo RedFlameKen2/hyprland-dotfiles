@@ -5,7 +5,9 @@
 (defvar appmenu_reveal false)
 (defvar paused true)
 (defvar powerReveal false)
-
+(defvar volumeReveal false)
+(defvar vol_level 0)
+(defvar mic_level 0)
 
 (defwidget dateWidgets []
   (box
@@ -209,56 +211,63 @@
 )
 
 (defwidget volumeWidget []
-  (eventbox
-    :class "volume"
+  (box
+    :class "volumeWidget"
     :orientation "horizontal"
-    :halign "center"
-    :valign "center"
-    :cursor "pointer"
-    :onclick "$(scripts/volume.sh mute)"
-    :onrightclick "$(pavucontrol)"
-    :onscroll "$(scripts/volume.sh {})"
-    (label
-      :class "volumeLabel"
-      :text "${volumeIcon} ${volumeLevel}"
+    :space-evenly "false"
+    :spacing 3
+    (revealer
+      :class "volumeReveal"
+      :transition "slideleft"
+      :reveal volumeReveal
+      (eventbox
+        :class "mixerButton"
+        :orientation "horizontal"
+        :cursor "pointer"
+        :onclick "$(scripts/toggleWindow.sh volumeWindow)"
+        :onhoverlost "eww update volumeReveal=false"
+        :onrightclick "$(pavucontrol)"
+        (label
+          :class "mixerButtonLabel"
+          :text "󰎆"
+        )
+      )
+    )
+    (eventbox
+      :class "volume"
+      :orientation "horizontal"
+      :halign "center"
+      :valign "center"
+      :cursor "pointer"
+      :onclick "$(pamixer --toggle-mute)"
+      :onrightclick "eww update volumeReveal=${volumeReveal ? "false" : "true"}"
+      :onscroll "$(scripts/volume.sh {})"
+      (label
+        :class "volumeLabel"
+        :text "${volumeIcon} ${muted ? 'muted' : '${vol_level}%'}"
+      )
     )
   )
 )
 
-(defwidget batteryWidget []
+(defwidget volumeControlWidgets []
   (box
-    :class "batteryWidget"
-    :orientation "horizontal"
-    :valign "center"
-    :space-evenly false 
-    :spacing 5
-    :halign "end"
-    (eventbox
-      :class "battery"
-      :orientation "horizontal"
-      :cursor "pointer"
-      :valign "center"
-      :onclick "eww update powerReveal=${ powerReveal ? "false" : "true" }"
-      (label
-        :class "batteryLabel ${battery-status ? 'batcharging' : ''} ${full_charge ? 'batfull' : '' }"
-        :text "${battery} ${battery-capacity}%"
-      )
+    :class "volumeControlWidgets"
+    :orientation "vertical"
+    :halign "fill"
+    :valign "fill"
+    (scroller
+      :class "volume"
+      :text "󰕾"
+      :value vol_level
+      :onchange "pamixer --set-volume {} && eww update vol_level={}"
     )
-    (revealer
-      :reveal powerReveal
-      :class "powerReveal"
-      :transition "slideright"
-      (eventbox
-        :onhoverlost "$(eww update powerReveal=false)"
-        :class "powerRevealButton"
-        :cursor "pointer"
-        :onclick "scripts/toggleWindow.sh powerWindow"
-        (label
-          :class "powerRevealLabel"
-          :text "󰐥"
-        )
-      )
-    )
+    (scroller
+      :class "mic"
+      :text "󰍬"
+      :value mic_level
+      :onchange "pamixer --default-source --set-volume {} && eww update mic_level={}"
+    ) 
   )
 )
 
@@ -323,19 +332,64 @@
 
 (defwidget scroller [class text value onchange]
   (box
-    :class "scroller"
+    :class "scroller ${class}Scroller"
     :orientation "horizontal"
+    :space-evenly false
+    (label
+      :class "scrollerLabel ${text}ScrollLabel"
+      :text text
+    )
     (scale
       :class "${class}Scroll"
       :min 0
       :max 101
       :value value
-      :round-digits false
+      :hexpand true
+      :round-digits 0
       :onchange onchange
       :orientation "horizontal"
     )
   )
 )
+
+(defwidget batteryWidget []
+  (box
+    :class "batteryWidget"
+    :orientation "horizontal"
+    :valign "center"
+    :space-evenly false 
+    :spacing 5
+    :halign "end"
+    (eventbox
+      :class "battery"
+      :orientation "horizontal"
+      :cursor "pointer"
+      :valign "center"
+      :onclick "eww update powerReveal=${ powerReveal ? "false" : "true" }"
+      (label
+        :class "batteryLabel ${battery-status == 'Full' ? 'batfull' : '${battery-status ? 'batcharging' : ''}'}"
+        :text "${battery} ${battery-capacity}%"
+      )
+    )
+    (revealer
+      :reveal powerReveal
+      :class "powerReveal"
+      :transition "slideright"
+      (eventbox
+        :onhoverlost "$(eww update powerReveal=false)"
+        :class "powerRevealButton"
+        :cursor "pointer"
+        :onclick "scripts/toggleWindow.sh powerWindow"
+        (label
+          :class "powerRevealLabel"
+          :text "󰐥"
+        )
+      )
+    )
+  )
+)
+
+
 (defwidget powerWidgets []
   (eventbox
     :class "powerWidgetOuter"

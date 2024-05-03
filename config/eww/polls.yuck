@@ -6,6 +6,10 @@
   :initial ""
   "scripts/volume.sh percent"
 )
+(deflisten muted
+  :initial ""
+  "scripts/volume.sh muted"
+)
 (deflisten playerImage
   :interval "1s"
   :initial ""

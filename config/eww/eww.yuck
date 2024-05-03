@@ -23,7 +23,7 @@
               :height "30px"
               :anchor "top center"
             )
-  :stacking "bg"
+  :stacking "fg"
   :windowtype "dock"
   :exclusive true
   :class "bar"
@@ -62,4 +62,21 @@
   :focusable true
   :class "powerWindow"
   (powerWidgets)
+)
+
+(defwindow volumeWindow
+  :monitor 0
+  :class "volumeWindow"
+  :geometry (geometry
+              :x "70px"
+              :y "0px"
+              :width "300px"
+              :height "125px"
+              :anchor "top right"
+            )
+  :stacking "fg"
+  :windowtype "toolbar"
+  :wm-ignore false
+  :focusable false
+  (volumeControlWidgets)
 )
