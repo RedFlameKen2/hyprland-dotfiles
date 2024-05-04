@@ -107,14 +107,14 @@ icon(){
     done
 }
 up(){
- #  pactl set-sink-volume @DEFAULT_SINK@ +5% 
-    pamixer --increase 5
+    pactl set-sink-volume @DEFAULT_SINK@ +5% 
+#    pamixer --increase 5
     eww update vol_level=$(pamixer --get-volume)
 }
 
 down(){
- #  pactl set-sink-volume @DEFAULT_SINK@ -5% 
-    pamixer --decrease 5
+    pactl set-sink-volume @DEFAULT_SINK@ -5% 
+#    pamixer --decrease 5
     eww update vol_level=$(pamixer --get-volume)
 }
 
