@@ -21,7 +21,7 @@ batstat(){
 	sleep 5
 	newstat="$(cat "/sys/class/power_supply/BAT1/status")"
 	newper="$(cat "/sys/class/power_supply/BAT1/capacity")"
-	if [ "$stat" == "$newstat" ]
+	if [ "$stat" == "$newstat" ] && ["$per" == "$newper" ]
 	then
 	    continue
 	else
