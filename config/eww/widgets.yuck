@@ -365,9 +365,9 @@
       :orientation "horizontal"
       :cursor "pointer"
       :valign "center"
-      :onclick "eww update powerReveal=${ powerReveal ? "false" : "true" }"
+      :onrightclick "eww update powerReveal=${ powerReveal ? "false" : "true" }"
       (label
-        :class "batteryLabel ${battery-status == 'Full' ? 'batfull' : '${battery-status ? 'batcharging' : ''}'}"
+        :class "batteryLabel ${battery-status == 'Full' ? 'batfull' : '${battery-status == true ? 'batcharging' : '${battery-status == 'Low' ? 'bat_low' : '' }' }' }"
         :text "${battery} ${battery-capacity}%"
       )
     )

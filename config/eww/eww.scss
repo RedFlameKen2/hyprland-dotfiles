@@ -4,7 +4,9 @@ $border-color: #FFC371;
 $fullcharge-color: rgb(25, 230, 25);
 $charging-color: rgb(230, 230, 25);
 $arch-color: rgb(100, 205, 255);
-$red-color: rgb(250, 75, 75);
+$red: rgb(250, 75, 75);
+$purple: rgb(200, 100, 250);
+$green: rgb(80, 220, 80);
 
 * {
     font-size: 16px;
@@ -46,6 +48,7 @@ $red-color: rgb(250, 75, 75);
   border: none;
 }
 
+
 .mixerButton,
 .powerRevealButton,
 .workspaces,
@@ -81,9 +84,13 @@ $red-color: rgb(250, 75, 75);
   padding: 1px 10px;
 }
 
+.batteryLabel {
+  color: $arch-color;
+}
 
+.bat_low,
 .powerRevealLabel {
-  color: $red-color;
+  color: $red;
 }
 
 .appmenuEventbox:hover .appmenuLabel{
@@ -113,6 +120,25 @@ $red-color: rgb(250, 75, 75);
   color: $background;
 }
 
+calendar:selected {
+  color: $arch-color;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: gray;
+}
+calendar.button {
+  color: $purple;
+}
+calendar.header {
+  color: $arch-color;
+}
+
+calendar.highlight {
+  color: $purple;
+}
+
 
 .volumeScrollLabel,
 .micScrollLabel {
@@ -136,7 +162,7 @@ $red-color: rgb(250, 75, 75);
 .playerButton {
   background: transparent;
   border: solid 2px;
-  border-color: $charging-color;
+  border-color: $arch-color;
   border-radius: 50px;
 }
 .playerButton:hover {
@@ -146,7 +172,7 @@ $red-color: rgb(250, 75, 75);
   color:  $background;
 }
 .playerButtonLabel {
-  color: $charging-color;
+  color: $arch-color;
 }
 
 .scroller slider {
@@ -166,6 +192,14 @@ $red-color: rgb(250, 75, 75);
   background-color: gray;
   border-radius: 50px;
   min-height: 8px;
+}
+
+.volume {
+  color: $green;
+}
+
+.changeTheme {
+  color: $purple;
 }
 
 .changeTheme:hover .changeThemeLabel{
@@ -199,10 +233,10 @@ $red-color: rgb(250, 75, 75);
 }
 
 .shutdown {
-  color: $red-color;
+  color: $red;
 }
 
 .sleep {
-  color: purple;
+  color: $purple;
 }
 

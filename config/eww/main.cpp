@@ -52,14 +52,15 @@ void updateLoop(){
     int activeWorkspace = getActiveWorkspace();
     while(true){
 	cout.flush();
-	sleep_for(250ms);
-	    int curActiveWorkspace = getActiveWorkspace();
-	    if(activeWorkspace == curActiveWorkspace){
-		continue;
-	    }
-	    activeWorkspace = curActiveWorkspace;
-	    string literal = createWorkspaceLiteral();
-	    cout << literal;
+	sleep_for(166ms);
+
+	int curActiveWorkspace = getActiveWorkspace();
+	if(activeWorkspace == curActiveWorkspace){
+	    continue;
+	}
+	activeWorkspace = curActiveWorkspace;
+	string literal = createWorkspaceLiteral();
+	cout << literal;
     }
 }
 

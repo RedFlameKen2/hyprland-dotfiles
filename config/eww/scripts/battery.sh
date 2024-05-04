@@ -2,6 +2,7 @@
 
 batstat(){
     stat="$(cat "/sys/class/power_supply/BAT1/status")"
+    per="$(cat "/sys/class/power_supply/BAT1/capacity")"
     if [ $stat == "Charging" ]
     then
 	echo true
@@ -9,17 +10,23 @@ batstat(){
     then
 	echo Full
     else
-	echo false
+	if [ $per -le 30 ]
+	then
+	    echo Low
+	else
+	    echo false
+	fi
     fi
-    echo $stat
     while true; do
 	sleep 5
 	newstat="$(cat "/sys/class/power_supply/BAT1/status")"
+	newper="$(cat "/sys/class/power_supply/BAT1/capacity")"
 	if [ "$stat" == "$newstat" ]
 	then
 	    continue
 	else
 	    stat=$newstat
+	    per=$newper
 	    if [ $stat == "Charging" ]
 	    then
 		echo true
@@ -27,7 +34,12 @@ batstat(){
 	    then
 		echo Full
 	    else
-		echo false
+		if [ $per -le 30 ]
+		then
+		    echo Low
+		else
+		    echo false
+		fi
 	    fi
 	fi
     done
@@ -36,7 +48,7 @@ batstat(){
 icon=""
 
 getIcon(){
-    [ $2 = Charging ] && echo "󰂄" && return
+    [ $2 = Charging ] || [ $2 = Full ] && echo "󰂄" && return
 
     if [ "$1" -gt "90" ]
     then

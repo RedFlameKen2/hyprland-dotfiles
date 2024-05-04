@@ -1,3 +1,7 @@
+(defpoll time
+  :interval "1s"
+  `date +'%l:%M %p'`
+)
 (deflisten volumeIcon
   :initial ""
   "scripts/volume.sh icon"
@@ -45,11 +49,6 @@
 (deflisten battery-status
   :initial "0"
   "scripts/battery.sh status"
-)
-
-(defpoll time
-  :interval "1s"
-  `date +'%l:%M %p'`
 )
 
 (deflisten workspace
