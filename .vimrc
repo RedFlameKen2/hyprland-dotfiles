@@ -20,7 +20,12 @@ set si
 set encoding=utf-8
 set fileencoding=utf-8
 
-map <C-BS> <C-w>
+inoremap <C-BS> <C-w>
+
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap ' ''<left>
+inoremap " ""<left>
 
 let g:currentMode = {
 	    \ 'n' : 'NORMAL',
